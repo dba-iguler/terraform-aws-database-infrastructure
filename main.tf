@@ -64,7 +64,8 @@ resource "aws_instance" "linux" {
   }
 
   tags = {
-    Name = each.key
+    Name        = each.key
+    Environment = "lab"
   }
 }
 
