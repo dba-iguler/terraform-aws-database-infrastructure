@@ -9,13 +9,6 @@ terraform {
 
 provider "aws" {
   region  = var.aws_region
-  profile = "terraform"
-}
-
-data "aws_caller_identity" "current" {}
-
-output "connected_user" {
-  value = data.aws_caller_identity.current.arn
 }
 
 data "aws_ami" "ubuntu" {
@@ -74,6 +67,7 @@ resource "aws_instance" "linux" {
     Name = each.key
   }
 }
+
 resource "aws_key_pair" "lab" {
   key_name   = "terraform-lab"
   public_key = file(var.public_key_path)
@@ -91,6 +85,7 @@ resource "aws_security_group" "lab" {
     protocol    = "tcp"
     cidr_blocks = [var.ssh_allowed_cidr]
   }
+
   dynamic "ingress" {
     for_each = [2379, 2380, 8008, 5432]
 
@@ -110,6 +105,7 @@ resource "aws_security_group" "lab" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
 output "public_ips" {
   value = {
     for name, vm in aws_instance.linux :
