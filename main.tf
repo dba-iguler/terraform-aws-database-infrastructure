@@ -36,12 +36,12 @@ data "aws_ami" "ubuntu" {
 data "aws_subnet" "lab" {
   filter {
     name   = "vpc-id"
-    values = ["vpc-07734c4e3155ca0ea"]
+    values = [var.vpc_id]
   }
 
   filter {
     name   = "availability-zone"
-    values = ["eu-central-1a"]
+    values = [var.availability_zone]
   }
 
   filter {
@@ -76,7 +76,7 @@ resource "aws_instance" "linux" {
 }
 resource "aws_key_pair" "lab" {
   key_name   = "terraform-lab"
-  public_key = file("C:/Users/Ibrahim/.ssh/terraform-lab.pub")
+  public_key = file(var.public_key_path)
 }
 
 resource "aws_security_group" "lab" {
@@ -116,10 +116,7 @@ output "public_ips" {
     name => vm.public_ip
   }
 }
-moved {
-  from = aws_instance.linux
-  to   = aws_instance.linux["terraform-linux-1"]
-}
+
 output "private_ips" {
   value = {
     for name, vm in aws_instance.linux :
