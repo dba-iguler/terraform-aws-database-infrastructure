@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "aws" {
-  region  = var.aws_region
+  region = var.aws_region
 }
 
 data "aws_ami" "ubuntu" {
@@ -119,4 +119,4 @@ output "private_ips" {
     name => vm.private_ip
   }
 }
-'# Managed as part of the database platform lab'
+# Managed as part of the database platform lab
