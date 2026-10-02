@@ -23,5 +23,20 @@ variable "node_names" {
 variable "ssh_allowed_cidr" {
   description = "Public IP range allowed to connect over SSH"
   type        = string
-  default     = "31.206.206.45/32"
+}
+
+variable "vpc_id" {
+  description = "VPC ID used by the lab environment"
+  type        = string
+}
+
+variable "availability_zone" {
+  description = "AWS availability zone"
+  type        = string
+  default     = "eu-central-1a"
+}
+
+variable "public_key_path" {
+  description = "Path to the SSH public key"
+  type        = string
 }
