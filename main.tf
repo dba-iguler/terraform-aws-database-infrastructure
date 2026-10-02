@@ -119,3 +119,4 @@ output "private_ips" {
     name => vm.private_ip
   }
 }
+'# Managed as part of the database platform lab'
