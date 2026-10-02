@@ -46,7 +46,7 @@ data "aws_subnet" "lab" {
 resource "aws_instance" "linux" {
   for_each                    = var.node_names
   ami                         = data.aws_ami.ubuntu.id
-  instance_type               = var.instance_type
+  instance_type               = lookup(var.node_instance_types, each.key, var.instance_type)
   subnet_id                   = data.aws_subnet.lab.id
   key_name                    = aws_key_pair.lab.key_name
   vpc_security_group_ids      = [aws_security_group.lab.id]

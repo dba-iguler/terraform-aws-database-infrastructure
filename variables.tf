@@ -40,3 +40,8 @@ variable "public_key_path" {
   description = "Path to the SSH public key"
   type        = string
 }
+variable "node_instance_types" {
+  description = "Optional instance type overrides by node name"
+  type        = map(string)
+  default     = {}
+}
